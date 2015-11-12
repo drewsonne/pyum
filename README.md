@@ -9,7 +9,7 @@ I had a need to manipulate and/or extract data from rpms and yum repositories to
 running a fedora/rhel/centos system. So I build a platform agnostic system to help me.
 
 ## Where is it at?
-I have another project (yum2s3)[https://github.com/drewsonne/yum2s3] which was the driving factor behind building this
+I have another project [yum2s3](https://github.com/drewsonne/yum2s3) which was the driving factor behind building this
 library. For this reason, the functionality in this library is driven primary by the needs of that project.
 
 ## Can I help?
