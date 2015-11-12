@@ -78,3 +78,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.egg-info
+dist
+build
