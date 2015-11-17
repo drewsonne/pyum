@@ -80,3 +80,5 @@ Temporary Items
 *.egg-info
 dist
 build
+tests/.DS_Store
+__pycache__
