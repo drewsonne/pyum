@@ -17,9 +17,10 @@ class RepoMetadata(HTTPClient):
     def load(self):
         xml = self._get_repo_data()
         self._parse_remomd(xml)
+        return self
 
     def _get_repo_data(self):
-        repomd = "{0}/repodata/repomd.xml".format(self.repo_url)
+        repomd = self.repo_url
         if self._url_is_reachable(repomd):
             return self._http_request(repomd).decode('utf-8')
         else:
@@ -48,6 +49,9 @@ class RepoMetadata(HTTPClient):
     def groups(self):
         return self._attributes['group']
 
+    def primary(self):
+        return self._attributes['primary']
+
     def _dataType(self, data_type):
         return {
             'group': GroupData,
@@ -57,7 +61,8 @@ class RepoMetadata(HTTPClient):
             'primary_db': PrimaryDbData,
             'other_db': OtherDbData,
             'other': OtherData,
-            'filelists_db': FileListDbData
+            'filelists_db': FileListDbData,
+            'updateinfo': UpdateInfoData
         }[data_type]
 
 class GroupGzData(GroupData): pass
@@ -74,3 +79,4 @@ class OtherDbData(Data): pass
 
 class OtherData(OtherDbData): pass
 
+class UpdateInfoData(Data): pass

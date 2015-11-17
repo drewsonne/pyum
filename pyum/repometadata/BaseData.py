@@ -1,7 +1,9 @@
+from pyum.HTTPClient import HTTPClient
+
 __author__ = 'drews'
 
 
-class Data(object):
+class Data(HTTPClient):
     xmlns = '{http://linux.duke.edu/metadata/common}'
     xmlns_rpm = '{http://linux.duke.edu/metadata/rpm}'
 
@@ -19,7 +21,12 @@ class Data(object):
         self.repo_url = new_url
 
     def location(self):
-        return "{0}/{1}".format(self.repo_url, self._attributes['location'])
+        return "{0}/{1}".format(self.repo_url.replace('repodata/repomd.xml',''), self._attributes['location'])
+
+    def load(self):
+        data = self._http_request(self.location())
+        self._parse(data)
+        return self
 
     def _parse(self, xml):
         raise Exception("_parse() is not implemented.")
