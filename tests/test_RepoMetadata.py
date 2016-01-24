@@ -1,3 +1,4 @@
+import os
 from unittest import TestCase
 import pkg_resources
 from pyum.repometadata import RepoMetadata, PrimaryData
@@ -7,6 +8,7 @@ __author__ = 'drews'
 class TestRepoMetadata(TestCase):
     def test_group_listing(self):
         primary = PrimaryData(test=None)
+        primary.setRepoUrl(os.path.realpath(pkg_resources.resource_filename(__name__, 'resources')))
         primary._parse(pkg_resources.resource_string(__name__, 'resources/primary.xml').decode('utf-8'))
 
     def test_url_resolution(self):

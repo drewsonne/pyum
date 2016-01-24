@@ -56,6 +56,10 @@ class Repo(HTTPClient):
         else:
             return self.render_string(self.repo_params[key])
 
+    @property
+    def enabled(self):
+        return ('1' if self.__getattr__('enabled') else '0')
+
     def render_string(self, string):
         if isinstance(string, str):
             for key, value in self.yum_variables.items():
