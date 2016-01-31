@@ -7,6 +7,9 @@ from pyum import cache
 
 __author__ = 'drews'
 
+from future.standard_library import install_aliases
+install_aliases()
+
 from urllib.parse import urlparse
 import http.client
 
