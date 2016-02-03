@@ -12,6 +12,9 @@ __author__ = 'drews'
 
 
 class HTTPClient(object):
+    class ConnectionError(Exception):
+        pass
+
     @staticmethod
     def _http_connection(url):
         o = urlparse(url)

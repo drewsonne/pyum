@@ -16,8 +16,5 @@ release: clean rst-readme build
 test: clean rst-readme
 	tox
 
-test-server: clean rst-readme
-	devpi test route-registry
-
 clean:
 	rm -rf dist build *.egg-info MANIFEST README.rst .tox .eggs
