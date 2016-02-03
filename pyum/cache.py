@@ -17,7 +17,7 @@ def __init__(self, function, function_arg_name):
 
 
 def __call__(self, *args, **kwargs):
-    if len(args) > 0:
+    if args:
         arg_names = self.arg_names
         if 'self' in arg_names:
             arg_names.remove('self')

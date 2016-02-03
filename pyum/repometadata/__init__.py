@@ -31,7 +31,7 @@ class RepoMetadata(HTTPClient):
         ns = doc.attrib
         xmlns = "{{{0}}}".format(self.xmlns)
         data_elements = doc.findall("./{0}data".format(xmlns))
-        if len(data_elements) > 0:
+        if data_elements:
             for data_element in data_elements:
                 attributes = {}
                 for child in data_element.findall(".//*"):
