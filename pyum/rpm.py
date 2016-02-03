@@ -67,7 +67,7 @@ class Rpm(object):
 class Package():
     @staticmethod
     def from_url(url):
-        package_data = HTTPClient()._http_request(url=url, decode=None)
+        package_data = HTTPClient().http_request(url=url, decode=None)
         return Package(raw_data=package_data)
 
     MODE_RAW_DATA = 0

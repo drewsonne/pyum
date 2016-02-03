@@ -13,6 +13,9 @@ __author__ = 'drews'
 
 
 class HTTPClient(object):
+    class ConnectionError(Exception):
+        pass
+
     @staticmethod
     def _http_connection(url):
         o = urlparse(url)
@@ -28,7 +31,7 @@ class HTTPClient(object):
         return (path, connection_func(o.netloc))
 
     @cache.opts(keys=('url', 'decode'), lifetime=3600)
-    def _http_request(self, url, decode='utf-8'):
+    def http_request(self, url, decode='utf-8'):
         (path, conn) = self._http_connection(url)
         conn.request('GET', path)
         response = conn.getresponse()
