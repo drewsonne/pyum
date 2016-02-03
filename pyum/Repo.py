@@ -29,7 +29,6 @@ class RepoFile(RawConfigParser, object):
         self.yum_variables = kwargs
 
 
-
 class Repo(HTTPClient):
     @classmethod
     def from_section(cls, section, yum_variables):
@@ -40,15 +39,13 @@ class Repo(HTTPClient):
     def __init__(self, **kwargs):
         self.repo_params = kwargs
         self.yum_variables = {}
-        if ('enabled' in self.repo_params):
-            if (self.repo_params['enabled'] in ['0','1']):
-                if self.repo_params['enabled'] == '1':
-                    self.repo_params['enabled'] = True
-                else:
-                    self.repo_params['enabled'] = False
+        if ('enabled' in self.repo_params) and (self.repo_params['enabled'] in ['0', '1']):
+            if self.repo_params['enabled'] == '1':
+                self.repo_params['enabled'] = True
+            else:
+                self.repo_params['enabled'] = False
         else:
             self.repo_params['enabled'] = True
-
 
     def __getattr__(self, key):
         if key not in self.repo_params:
@@ -79,14 +76,14 @@ class Repo(HTTPClient):
             mirrorlist = self._get_mirrorlist()
             for mirror in mirrorlist:
                 if not mirror.endswith('repodata/repomd.xml'):
-                    mirror = mirror+'repodata/repomd.xml'
+                    mirror = mirror + 'repodata/repomd.xml'
                 if self._url_is_reachable(mirror):
                     break
             return RepoMetadata(mirror)
 
     def _get_mirrorlist(self):
         if self._url_is_reachable(self.mirrorlist):
-            mirrorlist= self._http_request(self.mirrorlist).decode('utf-8')
+            mirrorlist = self._http_request(self.mirrorlist).decode('utf-8')
         else:
             raise ConnectionError('Could not connect to \'{0}\''.format(self.mirrorlist))
         if mirrorlist.startswith("<?xml"):
@@ -97,11 +94,13 @@ class Repo(HTTPClient):
     def parse_xml_mirrorlist(self, xml):
         mirrorlist = []
         doc = ElementTree.fromstring(xml)
-        urls = doc.findall('.//{http://www.metalinker.org/}files/{http://www.metalinker.org/}file/{http://www.metalinker.org/}resources/{http://www.metalinker.org/}url')
+        urls = doc.findall(
+            './/{http://www.metalinker.org/}files/{http://www.metalinker.org/}file/{http://www.metalinker.org/}resources/{http://www.metalinker.org/}url')
         for url in urls:
             if 'type' in url.attrib:
                 if url.attrib['type'] in ['http', 'https']:
                     mirrorlist.append(url.text)
         return mirrorlist
+
 
 class EtcRepos(object): pass
