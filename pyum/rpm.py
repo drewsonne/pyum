@@ -43,7 +43,6 @@ class Rpm(object):
         self.location = xml.find('.//{xmlns}location'.format(xmlns=self.xmlns)).attrib['href']
 
         self._parse_xml_format(xml.find('.//{xmlns}format'.format(xmlns=self.xmlns)))
-        pass
 
     def _parse_xml_format(self, xml):
         self.license = xml.find('.//{xmlns}license'.format(xmlns=self.xmlns_rpm)).text
