@@ -65,8 +65,8 @@ class Rpm(object):
 
 
 class Package():
-    @classmethod
-    def from_url(cls, url):
+    @staticmethod
+    def from_url(url):
         package_data = HTTPClient()._http_request(url=url, decode=None)
         return Package(raw_data=package_data)
 
@@ -90,6 +90,7 @@ class Package():
         cpio = self.rpm.gzip_file.read()
         content = cpio.read()
         return []
+
     # yb = yum.YumBase()
 
     def __exit__(self, *excinfo):

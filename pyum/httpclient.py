@@ -13,7 +13,8 @@ __author__ = 'drews'
 
 
 class HTTPClient(object):
-    def _http_connection(self, url):
+    @staticmethod
+    def _http_connection(url):
         o = urlparse(url)
         if o.scheme == 'http':
             connection_func = httplib.HTTPConnection

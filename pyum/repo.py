@@ -30,8 +30,8 @@ class RepoFile(RawConfigParser, object):
 
 
 class Repo(HTTPClient):
-    @classmethod
-    def from_section(cls, section, yum_variables):
+    @staticmethod
+    def from_section(section, yum_variables):
         repo = Repo(**dict(section))
         repo.set_yum_variables(**yum_variables)
         return repo

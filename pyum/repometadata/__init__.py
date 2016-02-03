@@ -52,7 +52,8 @@ class RepoMetadata(HTTPClient):
     def primary(self):
         return self._attributes['primary']
 
-    def _dataType(self, data_type):
+    @staticmethod
+    def _dataType(data_type):
         return {
             'group': GroupData,
             'filelists': FilelistData,
@@ -64,6 +65,7 @@ class RepoMetadata(HTTPClient):
             'filelists_db': FileListDbData,
             'updateinfo': UpdateInfoData
         }[data_type]
+
 
 class GroupGzData(GroupData): pass
 
@@ -78,5 +80,6 @@ class OtherDbData(Data): pass
 
 
 class OtherData(OtherDbData): pass
+
 
 class UpdateInfoData(Data): pass
