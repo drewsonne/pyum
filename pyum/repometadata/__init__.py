@@ -1,6 +1,6 @@
-from pyum.HTTPClient import HTTPClient
+from pyum.httpclient import HTTPClient
 from xml.etree import ElementTree
-from pyum.repometadata.BaseData import Data
+from pyum.repometadata.base import Data
 from pyum.repometadata.group import GroupData
 from pyum.repometadata.primary import PrimaryDbData, PrimaryData
 

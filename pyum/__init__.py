@@ -1,3 +1,3 @@
 __author__ = 'drews'
 
-from .Repo import RepoFile, Repo
+from .repo import RepoFile, Repo

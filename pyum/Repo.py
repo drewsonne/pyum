@@ -1,6 +1,6 @@
 from ConfigParser import RawConfigParser
 from xml.etree import ElementTree
-from pyum.HTTPClient import HTTPClient
+from pyum.httpclient import HTTPClient
 from pyum.repometadata import RepoMetadata
 
 __author__ = 'drews'

@@ -1,5 +1,5 @@
 from xml.etree import ElementTree
-from pyum.repometadata.BaseData import Data
+from pyum.repometadata.base import Data
 
 __author__ = 'drews'
 

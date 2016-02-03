@@ -1,4 +1,4 @@
-from pyum.HTTPClient import HTTPClient
+from pyum.httpclient import HTTPClient
 
 __author__ = 'drews'
 
