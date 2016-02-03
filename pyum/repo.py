@@ -1,4 +1,4 @@
-from ConfigParser import RawConfigParser
+from configparser import RawConfigParser
 from xml.etree import ElementTree
 from pyum.httpclient import HTTPClient
 from pyum.repometadata import RepoMetadata
