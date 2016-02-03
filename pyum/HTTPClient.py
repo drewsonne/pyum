@@ -7,6 +7,7 @@ from pyum import cache
 
 __author__ = 'drews'
 
+
 # from urllib.parse import urlparse
 # import http.client
 
@@ -32,15 +33,15 @@ class HTTPClient(object):
         response = conn.getresponse()
 
         content_type = response.getheader('Content-Type', None)
-        if content_type is not None:
-            if (content_type in ['application/x-gzip']) or url.endswith('.gz') or url.endswith('.tgz'):
-                result = gzip.decompress(response.read())
-                if decode is not None:
-                    return result.decode(decode)
-                else:
-                    return result
+        if ((content_type is not None) and (content_type in ['application/x-gzip']) or
+                url.endswith('.gz') or url.endswith('.tgz')):
+            result = gzip.decompress(response.read())
+            if decode is not None:
+                return result.decode(decode)
+            else:
+                return result
 
-        return response.read()
+        return response.read() 
 
     @cache.opts(keys=['url'])
     def _url_is_reachable(self, url):
