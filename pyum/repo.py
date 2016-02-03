@@ -7,7 +7,16 @@ __author__ = 'drews'
 
 
 class RepoFile(RawConfigParser, object):
+    """
+    Represents a file on disk, describing one or more repositories in /etc/yum.repods.d/*.repo
+    """
+
     def __init__(self, path_to_config):
+        """
+        Path on disk to the ini file containing the repo description
+        :param path_to_config str:
+        :return:
+        """
         super(RepoFile, self).__init__()
         self.path_to_config = path_to_config
         self.read(self.path_to_config)
