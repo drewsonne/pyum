@@ -36,7 +36,7 @@ def __call__(self, *args, **kwargs):
 
 
 def _build_key(function_name, key_elements, args):
-    m = hashlib.md5()
+    m = hashlib.sha512()
     m.update(function_name.encode('utf-8'))
     for key in key_elements:
         if key in args:
