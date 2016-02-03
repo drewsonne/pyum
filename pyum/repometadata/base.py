@@ -21,12 +21,12 @@ class Data(HTTPClient):
         self.repo_url = new_url
 
     def location(self):
-        return "{0}/{1}".format(self.repo_url.replace('repodata/repomd.xml',''), self._attributes['location'])
+        return "{0}/{1}".format(self.repo_url.replace('repodata/repomd.xml', ''), self._attributes['location'])
 
     def load(self):
         data = self._http_request(self.location())
         self._parse(data)
         return self
 
-    def _parse(self, xml):
+    def _parse(self, *args, **kwargs):
         raise Exception("_parse() is not implemented.")
