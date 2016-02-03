@@ -16,9 +16,9 @@ class HTTPClient(object):
     def _http_connection(url):
         o = urlparse(url)
         if o.scheme == 'http':
-            connection_func = httplib.HTTPConnection
+            connection_func = http.client.HTTPConnection
         elif o.scheme == 'https':
-            connection_func = httplib.HTTPSConnection
+            connection_func = http.client.HTTPSConnection
         else:
             raise TypeError("unexpected scheme '{0}'".format(o.scheme))
         path = o.path
