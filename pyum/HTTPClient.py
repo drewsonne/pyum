@@ -1,9 +1,6 @@
-import gzip
 import httplib
 import socket
 import gzip
-import io
-import zlib
 from urlparse import urlparse
 
 from pyum import cache
