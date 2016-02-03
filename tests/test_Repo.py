@@ -1,16 +1,17 @@
 from unittest import TestCase
 import pkg_resources
 import pyum
+from pyum.repo import RepoFile, Repo
 
 __author__ = 'drews'
 
 
 class TestRepo(TestCase):
     def test_load_from_config(self):
-        repos = pyum.RepoFile(pkg_resources.resource_filename(__name__, 'resources/test_repo.repo'))
+        repos = RepoFile(pkg_resources.resource_filename(__name__, 'resources/test_repo.repo'))
         repos.set_yum_variables(
-            releasever='7',
-            basearch='x86_64'
+                releasever='7',
+                basearch='x86_64'
         )
 
         self.assertEqual(repos.keys, [
@@ -20,11 +21,11 @@ class TestRepo(TestCase):
         ])
 
         self.assertIsInstance(repos['red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-rpms'],
-                              pyum.Repo)
+                              Repo)
         self.assertIsInstance(repos['red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-source-rpms'],
-                              pyum.Repo)
+                              Repo)
         self.assertIsInstance(repos['red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-debug-rpms'],
-                              pyum.Repo)
+                              Repo)
 
         # Test the base rpms repo.
         rpms_content = {
