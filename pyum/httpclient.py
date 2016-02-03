@@ -1,15 +1,12 @@
-import httplib
-import socket
-import gzip
-from urlparse import urlparse
-
-from pyum import cache
-
 from future.standard_library import install_aliases
-from urllib.parse import urlparse
-import http.client
 
 install_aliases()
+
+from urllib.parse import urlparse
+from pyum import cache
+import http.client
+import socket
+import gzip
 
 __author__ = 'drews'
 
