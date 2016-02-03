@@ -95,11 +95,10 @@ class Repo(HTTPClient):
         mirrorlist = []
         doc = ElementTree.fromstring(xml)
         urls = doc.findall(
-            './/{http://www.metalinker.org/}files/{http://www.metalinker.org/}file/{http://www.metalinker.org/}resources/{http://www.metalinker.org/}url')
+                './/{http://www.metalinker.org/}files/{http://www.metalinker.org/}file/{http://www.metalinker.org/}resources/{http://www.metalinker.org/}url')
         for url in urls:
-            if 'type' in url.attrib:
-                if url.attrib['type'] in ['http', 'https']:
-                    mirrorlist.append(url.text)
+            if ('type' in url.attrib) and (url.attrib['type'] in ['http', 'https']):
+                mirrorlist.append(url.text)
         return mirrorlist
 
 
