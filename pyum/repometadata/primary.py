@@ -12,7 +12,7 @@ class PrimaryData(Data):
         packages = doc.findall("./{0}package".format(self.xmlns))
         for package in packages:
             rpm = Rpm()
-            rpm._parse_xml(package)
+            rpm.parse_xml(package)
             rpm.repo_url = self.repo_url.replace('repodata/repomd.xml','')
             self.packages[rpm.name] = rpm
 

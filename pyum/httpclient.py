@@ -1,21 +1,20 @@
-import gzip
 import httplib
 import socket
 import gzip
-import io
-import zlib
 from urlparse import urlparse
 
 from pyum import cache
 
 __author__ = 'drews'
 
+
 # from urllib.parse import urlparse
 # import http.client
 
 
 class HTTPClient(object):
-    def _http_connection(self, url):
+    @staticmethod
+    def _http_connection(url):
         o = urlparse(url)
         if o.scheme == 'http':
             connection_func = httplib.HTTPConnection
@@ -35,13 +34,13 @@ class HTTPClient(object):
         response = conn.getresponse()
 
         content_type = response.getheader('Content-Type', None)
-        if content_type is not None:
-            if (content_type in ['application/x-gzip']) or url.endswith('.gz') or url.endswith('.tgz'):
-                result = gzip.decompress(response.read())
-                if decode is not None:
-                    return result.decode(decode)
-                else:
-                    return result
+        if ((content_type is not None) and (content_type in ['application/x-gzip']) or
+                url.endswith('.gz') or url.endswith('.tgz')):
+            result = gzip.decompress(response.read())
+            if decode is not None:
+                return result.decode(decode)
+            else:
+                return result
 
         return response.read()
 

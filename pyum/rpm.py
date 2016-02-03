@@ -1,7 +1,7 @@
 # import yum
 import tempfile
 from pyrpm.rpm import RPM
-from pyum.HTTPClient import HTTPClient
+from pyum.httpclient import HTTPClient
 
 __author__ = 'drews'
 
@@ -17,7 +17,7 @@ class Rpm(object):
     def uri(self):
         return '{0}/{1}'.format(self.repo_url, self.location)
 
-    def _parse_xml(self, xml):
+    def parse_xml(self, xml):
         self.name = xml.find('.//{xmlns}name'.format(xmlns=self.xmlns)).text
         self.arch = xml.find('.//{xmlns}arch'.format(xmlns=self.xmlns)).text
         self.version = xml.find('.//{xmlns}version'.format(xmlns=self.xmlns)).attrib['ver']
@@ -43,7 +43,6 @@ class Rpm(object):
         self.location = xml.find('.//{xmlns}location'.format(xmlns=self.xmlns)).attrib['href']
 
         self._parse_xml_format(xml.find('.//{xmlns}format'.format(xmlns=self.xmlns)))
-        pass
 
     def _parse_xml_format(self, xml):
         self.license = xml.find('.//{xmlns}license'.format(xmlns=self.xmlns_rpm)).text
@@ -66,8 +65,8 @@ class Rpm(object):
 
 
 class Package():
-    @classmethod
-    def from_url(cls, url):
+    @staticmethod
+    def from_url(url):
         package_data = HTTPClient()._http_request(url=url, decode=None)
         return Package(raw_data=package_data)
 
@@ -91,6 +90,7 @@ class Package():
         cpio = self.rpm.gzip_file.read()
         content = cpio.read()
         return []
+
     # yb = yum.YumBase()
 
     def __exit__(self, *excinfo):

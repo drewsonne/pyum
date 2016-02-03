@@ -1,5 +1,5 @@
 from xml.etree import ElementTree
-from pyum.repometadata.BaseData import Data
+from pyum.repometadata.base import Data
 
 __author__ = 'drews'
 
@@ -10,4 +10,5 @@ class GroupData(Data):
     def _parse(self, param):
         doc = ElementTree.fromstring(param)
         groups = doc.findall("./{0}group".format(self.xmlns))
-        pass
+        #TODO Pick up coding from here!!
+        raise Exception("This is where you stopped coding.")

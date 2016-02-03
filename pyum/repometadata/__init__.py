@@ -1,6 +1,6 @@
-from pyum.HTTPClient import HTTPClient
+from pyum.httpclient import HTTPClient
 from xml.etree import ElementTree
-from pyum.repometadata.BaseData import Data
+from pyum.repometadata.base import Data
 from pyum.repometadata.group import GroupData
 from pyum.repometadata.primary import PrimaryDbData, PrimaryData
 
@@ -31,7 +31,7 @@ class RepoMetadata(HTTPClient):
         ns = doc.attrib
         xmlns = "{{{0}}}".format(self.xmlns)
         data_elements = doc.findall("./{0}data".format(xmlns))
-        if len(data_elements) > 0:
+        if data_elements:
             for data_element in data_elements:
                 attributes = {}
                 for child in data_element.findall(".//*"):
@@ -52,7 +52,8 @@ class RepoMetadata(HTTPClient):
     def primary(self):
         return self._attributes['primary']
 
-    def _dataType(self, data_type):
+    @staticmethod
+    def _dataType(data_type):
         return {
             'group': GroupData,
             'filelists': FilelistData,
@@ -64,6 +65,7 @@ class RepoMetadata(HTTPClient):
             'filelists_db': FileListDbData,
             'updateinfo': UpdateInfoData
         }[data_type]
+
 
 class GroupGzData(GroupData): pass
 
@@ -78,5 +80,6 @@ class OtherDbData(Data): pass
 
 
 class OtherData(OtherDbData): pass
+
 
 class UpdateInfoData(Data): pass
