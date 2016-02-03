@@ -1,3 +1,3 @@
 __author__ = 'drews'
 
-from .repo import RepoFile, Repo
+from pyum.repo import RepoFile, Repo
