@@ -84,3 +84,4 @@ tests/.DS_Store
 __pycache__
 .eggs
 .tox
+README.rst
