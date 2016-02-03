@@ -15,13 +15,16 @@ __author__ = 'drews'
 
 
 class HTTPClient(object):
+    class ConnectionError(Exception):
+        pass
+
     @staticmethod
     def _http_connection(url):
         o = urlparse(url)
         if o.scheme == 'http':
-            connection_func = httplib.HTTPConnection
+            connection_func = http.client.HTTPConnection
         elif o.scheme == 'https':
-            connection_func = httplib.HTTPSConnection
+            connection_func = http.client.HTTPSConnection
         else:
             raise TypeError("unexpected scheme '{0}'".format(o.scheme))
         path = o.path
@@ -30,7 +33,7 @@ class HTTPClient(object):
         return (path, connection_func(o.netloc))
 
     @cache.opts(keys=('url', 'decode'), lifetime=3600)
-    def _http_request(self, url, decode='utf-8'):
+    def http_request(self, url, decode='utf-8'):
         (path, conn) = self._http_connection(url)
         conn.request('GET', path)
         response = conn.getresponse()

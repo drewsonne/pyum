@@ -1,4 +1,4 @@
-from ConfigParser import RawConfigParser
+from configparser import RawConfigParser
 from xml.etree import ElementTree
 from pyum.httpclient import HTTPClient
 from pyum.repometadata import RepoMetadata
@@ -85,13 +85,14 @@ class Repo(HTTPClient):
         if self._url_is_reachable(self.mirrorlist):
             mirrorlist = self._http_request(self.mirrorlist).decode('utf-8')
         else:
-            raise ConnectionError('Could not connect to \'{0}\''.format(self.mirrorlist))
+            raise HTTPClient.ConnectionError('Could not connect to \'{0}\''.format(self.mirrorlist))
         if mirrorlist.startswith("<?xml"):
             return self.parse_xml_mirrorlist(mirrorlist)
         else:
             return mirrorlist.split("\n")
 
-    def parse_xml_mirrorlist(self, xml):
+    @staticmethod
+    def parse_xml_mirrorlist(xml):
         mirrorlist = []
         doc = ElementTree.fromstring(xml)
         urls = doc.findall(

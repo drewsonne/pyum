@@ -1,6 +1,10 @@
 pyum
 ====
 
+|Code Issues|
+
+|Build Status|
+
 Why do we need this?
 --------------------
 
@@ -18,7 +22,7 @@ me.
 Where is it at?
 ---------------
 
-I have another project (yum2s3)[https://github.com/drewsonne/yum2s3]
+I have another project `yum2s3 <https://github.com/drewsonne/yum2s3>`__
 which was the driving factor behind building this library. For this
 reason, the functionality in this library is driven primary by the needs
 of that project.
@@ -32,3 +36,8 @@ do. If you can expand functionality after writing tests; please do. But
 please, write tests. For the most part I'm not fussy about branching and
 such with pull requests. But please write some tests. In conclusion,
 tests.
+
+.. |Code Issues| image:: https://www.quantifiedcode.com/api/v1/project/1de18b64180a4bdc8121ceeebb239868/badge.svg
+   :target: https://www.quantifiedcode.com/app/project/1de18b64180a4bdc8121ceeebb239868
+.. |Build Status| image:: https://travis-ci.org/drewsonne/pyum.svg?branch=master
+   :target: https://travis-ci.org/drewsonne/pyum
