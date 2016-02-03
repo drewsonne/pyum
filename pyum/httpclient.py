@@ -5,11 +5,13 @@ from urlparse import urlparse
 
 from pyum import cache
 
+from future.standard_library import install_aliases
+from urllib.parse import urlparse
+import http.client
+
+install_aliases()
+
 __author__ = 'drews'
-
-
-# from urllib.parse import urlparse
-# import http.client
 
 
 class HTTPClient(object):
