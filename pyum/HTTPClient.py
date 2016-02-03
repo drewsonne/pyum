@@ -41,7 +41,7 @@ class HTTPClient(object):
             else:
                 return result
 
-        return response.read() 
+        return response.read()
 
     @cache.opts(keys=['url'])
     def _url_is_reachable(self, url):
