@@ -17,7 +17,7 @@ class Rpm(object):
     def uri(self):
         return '{0}/{1}'.format(self.repo_url, self.location)
 
-    def _parse_xml(self, xml):
+    def parse_xml(self, xml):
         self.name = xml.find('.//{xmlns}name'.format(xmlns=self.xmlns)).text
         self.arch = xml.find('.//{xmlns}arch'.format(xmlns=self.xmlns)).text
         self.version = xml.find('.//{xmlns}version'.format(xmlns=self.xmlns)).attrib['ver']
