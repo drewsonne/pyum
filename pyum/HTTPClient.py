@@ -1,23 +1,26 @@
 import gzip
+import httplib
 import socket
 import gzip
 import io
 import zlib
+from urlparse import urlparse
+
 from pyum import cache
 
 __author__ = 'drews'
 
-from urllib.parse import urlparse
-import http.client
+# from urllib.parse import urlparse
+# import http.client
 
 
 class HTTPClient(object):
     def _http_connection(self, url):
         o = urlparse(url)
         if o.scheme == 'http':
-            connection_func = http.client.HTTPConnection
+            connection_func = httplib.HTTPConnection
         elif o.scheme == 'https':
-            connection_func = http.client.HTTPSConnection
+            connection_func = httplib.HTTPSConnection
         else:
             raise TypeError("unexpected scheme '{0}'".format(o.scheme))
         path = o.path

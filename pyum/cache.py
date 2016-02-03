@@ -1,8 +1,8 @@
 import hashlib
 import os
 import pickle
-from yum2s3.path import expand
 import inspect
+from pyum.path import expand
 
 __author__ = 'drews'
 

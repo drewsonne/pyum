@@ -1,4 +1,4 @@
-from configparser import RawConfigParser
+from ConfigParser import RawConfigParser
 from xml.etree import ElementTree
 from pyum.HTTPClient import HTTPClient
 from pyum.repometadata import RepoMetadata
@@ -6,14 +6,14 @@ from pyum.repometadata import RepoMetadata
 __author__ = 'drews'
 
 
-class RepoFile(RawConfigParser):
+class RepoFile(RawConfigParser, object):
     def __init__(self, path_to_config):
         super(RepoFile, self).__init__()
         self.path_to_config = path_to_config
         self.read(self.path_to_config)
         self.yum_variables = {}
 
-    def __getattribute__(self, item):
+    def __getattr__(self, item):
         if item == 'keys':
             sections = self.sections()
             return sections
@@ -21,9 +21,9 @@ class RepoFile(RawConfigParser):
             return super(RepoFile, self).__getattribute__(item)
 
     def __getitem__(self, key):
-        if key != self.default_section and not self.has_section(key):
+        if not self.has_section(key):
             raise KeyError(key)
-        return Repo.from_section(self._proxies[key], self.yum_variables)
+        return Repo.from_section(self._sections[key], self.yum_variables)
 
     def set_yum_variables(self, **kwargs):
         self.yum_variables = kwargs
