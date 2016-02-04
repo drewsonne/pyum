@@ -19,5 +19,9 @@ library. For this reason, the functionality in this library is driven primary by
 ## Can I help?
 Please do! I've done my best to make this a test driven project, so if you can improve my tests; please do. If you can
 write new tests; please do. If you can expand functionality after writing tests; please do.
-But please, write tests. For the most part I'm not fussy about branching and such with pull requests. But please write
-some tests. In conclusion, tests.
+But please, write tests. 
+
+For the time being I'm not fussy about branching and such with pull requests, as any help is appreciated.
+My only request is that when you submit them, __create pull requests it to go into the develop branch__.
+
+But please write some tests. In conclusion, tests.
