@@ -10,7 +10,9 @@ Why do we need this when there are perfectly good 'yum' and 'rpm' python package
 Simple really: they don't work on systems without yum or rpm (eg. debian, osx).
 
 I had a need to manipulate and/or extract data from rpms and yum repositories to manage rpms, but wasn't neccesarily
-running a fedora/rhel/centos system. So I build a platform agnostic system to help me.
+running a fedora/rhel/centos system. Or even in AWS Lambda. Which would allow S3 buckets to be used as yum repos without needing an EC2 instance.
+
+So I build a platform agnostic system to help me.
 
 ## Where is it at?
 I have another project [yum2s3](https://github.com/drewsonne/yum2s3) which was the driving factor behind building this
