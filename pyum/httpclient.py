@@ -12,7 +12,14 @@ __author__ = 'drews'
 
 
 class HTTPClient(object):
+    """
+    Helper class to handle HTTP calls, and cache their results if we want to.
+    """
+
     class ConnectionError(Exception):
+        """
+        Exception thrown if we can not connect to a server
+        """
         pass
 
     @staticmethod

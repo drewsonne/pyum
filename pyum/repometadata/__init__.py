@@ -8,6 +8,10 @@ __author__ = 'drews'
 
 
 class RepoMetadata(HTTPClient):
+    """
+    A structured representation of the repomd.xml file, used as an entrypoint for yum requests
+    """
+
     def __init__(self, repo_path, xmlns='http://linux.duke.edu/metadata/repo'):
         self.repo_url = repo_path
         self.xmlns = xmlns
@@ -22,9 +26,9 @@ class RepoMetadata(HTTPClient):
     def _get_repo_data(self):
         repomd = self.repo_url
         if self._url_is_reachable(repomd):
-            return self._http_request(repomd).decode('utf-8')
+            return self.http_request(repomd).decode('utf-8')
         else:
-            raise ConnectionError("Could not reach repo '{0}'".format(self.repo_url))
+            raise HTTPClient.ConnectionError("Could not reach repo '{0}'".format(self.repo_url))
 
     def _parse_remomd(self, repo_metadata):
         doc = ElementTree.fromstring(repo_metadata)

@@ -7,6 +7,9 @@ __author__ = 'drews'
 
 
 class Rpm(object):
+    """
+    Represents the xml structure defining where to find a the specific version of an RPM.
+    """
     xmlns = '{http://linux.duke.edu/metadata/common}'
     xmlns_rpm = '{http://linux.duke.edu/metadata/rpm}'
 
@@ -65,6 +68,10 @@ class Rpm(object):
 
 
 class Package():
+    """
+    Represents the general cocnept of an RPM, but not any single RPM. eg, httpd, but not httpd-2.348-el6
+    """
+
     @staticmethod
     def from_url(url):
         package_data = HTTPClient().http_request(url=url, decode=None)
