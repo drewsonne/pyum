@@ -39,6 +39,9 @@ class RepoFile(RawConfigParser, object):
 
 
 class Repo(HTTPClient):
+    """
+    Represents a single repository
+    """
     @staticmethod
     def from_section(section, yum_variables):
         repo = Repo(**dict(section))
