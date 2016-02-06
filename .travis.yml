@@ -6,7 +6,7 @@ before_install:
   - pip install codecov
 install:
   - pip install .
-script: nosetests
+script: nosetests --with-coverage
 matrix:
   allow_failures:
     - python: "3.4"
