@@ -1,9 +1,26 @@
 # import yum
 import tempfile
+from xml import etree
+
 from pyrpm.rpm import RPM
 from pyum.httpclient import HTTPClient
 
 __author__ = 'drews'
+
+
+class RpmParser(object):
+    @staticmethod
+    def load(fp):
+        """
+
+        :param fp:
+        :return Rpm:
+        """
+        parser = etree.XMLParser(target=RpmParser())
+        return etree.parse(fp.read(), parser)
+
+    def __init__(self):
+        self.rpm = Rpm()
 
 
 class Rpm(object):
@@ -15,6 +32,10 @@ class Rpm(object):
 
     @property
     def package(self):
+        """
+        Return the package from a URL
+        :return:
+        """
         return Package.from_url(self.uri())
 
     def uri(self):
@@ -67,13 +88,22 @@ class Rpm(object):
                 self.requires.append(entry.attrib['name'])
 
 
-class Package():
+class Format(object):
+    pass
+
+
+class Package(object):
     """
     Represents the general cocnept of an RPM, but not any single RPM. eg, httpd, but not httpd-2.348-el6
     """
 
     @staticmethod
     def from_url(url):
+        """
+        Given a URL, return a package
+        :param url:
+        :return:
+        """
         package_data = HTTPClient().http_request(url=url, decode=None)
         return Package(raw_data=package_data)
 
@@ -88,12 +118,16 @@ class Package():
             self.fp = tempfile.NamedTemporaryFile()
             self.fp.write(raw_data)
             self.fp.seek(0)
-            self.rpm = RPM(self.fp)
+            self.rpm = RPM.load(self.fp)
 
     def __enter__(self):
         return self
 
     def dependencies(self):
+        """
+        Read the contents of the rpm itself
+        :return:
+        """
         cpio = self.rpm.gzip_file.read()
         content = cpio.read()
         return []
@@ -101,6 +135,11 @@ class Package():
     # yb = yum.YumBase()
 
     def __exit__(self, *excinfo):
+        """
+        Make sure we close the file after we finish the 'with'
+        :param excinfo:
+        :return:
+        """
         self.rpm.__exit__(*excinfo)
         if self.mode == self.MODE_RAW_DATA:
             self.fp.close()

@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/drewsonne/pyum.svg?branch=master)](https://travis-ci.org/drewsonne/pyum)
 
+[![codecov.io](https://codecov.io/github/drewsonne/pyum/coverage.svg?branch=master)](https://codecov.io/github/drewsonne/pyum?branch=master)
+
 ## Why do we need this?
 Why do we need this when there are perfectly good 'yum' and 'rpm' python packages?
 

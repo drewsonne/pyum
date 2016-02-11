@@ -9,7 +9,7 @@ class TestRepoMetadata(TestCase):
     def test_group_listing(self):
         primary = PrimaryData(test=None)
         primary.setRepoUrl(os.path.realpath(pkg_resources.resource_filename(__name__, 'resources')))
-        primary._parse(pkg_resources.resource_string(__name__, 'resources/primary.xml').decode('utf-8'))
+        primary._parse(pkg_resources.resource_filename(__name__, 'resources/primary.xml').decode('utf-8'))
 
     def test_url_resolution(self):
         md = RepoMetadata('http://example.com/yum')

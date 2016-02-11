@@ -1,5 +1,4 @@
 from configparser import RawConfigParser
-from xml.etree import ElementTree
 from pyum.httpclient import HTTPClient
 from pyum.repometadata import RepoMetadata
 
@@ -32,16 +31,26 @@ class RepoFile(RawConfigParser, object):
     def __getitem__(self, key):
         if not self.has_section(key):
             raise KeyError(key)
-        return Repo.from_section(self._sections[key], self.yum_variables)
+        return Repo.from_section(self.items(key), self.yum_variables)
 
-    def set_yum_variables(self, **kwargs):
-        self.yum_variables = kwargs
+    def set_yum_variables(self, releasever, basearch):
+        """
+        Variables which are usually injected from an OS level.
+        :param releasever int: OS major version
+        :param basearch string: One of either 'i386' or 'x86_64'.
+        :return:
+        """
+        self.yum_variables = {
+            'releasever': str(releasever),
+            'basearch': basearch
+        }
 
 
 class Repo(HTTPClient):
     """
     Represents a single repository
     """
+
     @staticmethod
     def from_section(section, yum_variables):
         repo = Repo(**dict(section))
@@ -51,13 +60,10 @@ class Repo(HTTPClient):
     def __init__(self, **kwargs):
         self.repo_params = kwargs
         self.yum_variables = {}
-        if ('enabled' in self.repo_params) and (self.repo_params['enabled'] in ['0', '1']):
-            if self.repo_params['enabled'] == '1':
-                self.repo_params['enabled'] = True
-            else:
-                self.repo_params['enabled'] = False
-        else:
-            self.repo_params['enabled'] = True
+        enabled_state = self.repo_params.get('enabled', False)
+        if enabled_state in ['0', '1']:
+            enabled_state = (False if enabled_state == '0' else True)
+        self.repo_params['enabled'] = enabled_state
 
     def __getattr__(self, key):
         if key not in self.repo_params:
@@ -75,8 +81,17 @@ class Repo(HTTPClient):
                 string = string.replace('$' + key, value)
         return string
 
-    def set_yum_variables(self, **kwargs):
-        self.yum_variables = kwargs
+    def set_yum_variables(self, releasever, basearch):
+        """
+        Variables which are usually injected from an OS level.
+        :param releasever int: OS major version
+        :param basearch string: One of either 'i386' or 'x86_64'.
+        :return:
+        """
+        self.yum_variables = {
+            'releasever': str(releasever),
+            'basearch': basearch
+        }
 
     def primary(self):
         return self._parse_repo_data().load().primary()
@@ -95,7 +110,7 @@ class Repo(HTTPClient):
 
     def _get_mirrorlist(self):
         if self._url_is_reachable(self.mirrorlist):
-            mirrorlist = self._http_request(self.mirrorlist).decode('utf-8')
+            mirrorlist = self.http_request(self.mirrorlist).decode('utf-8')
         else:
             raise HTTPClient.ConnectionError('Could not connect to \'{0}\''.format(self.mirrorlist))
         if mirrorlist.startswith("<?xml"):
@@ -113,6 +128,3 @@ class Repo(HTTPClient):
             if ('type' in url.attrib) and (url.attrib['type'] in ['http', 'https']):
                 mirrorlist.append(url.text)
         return mirrorlist
-
-
-class EtcRepos(object): pass

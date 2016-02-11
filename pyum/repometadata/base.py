@@ -3,12 +3,15 @@ from pyum.httpclient import HTTPClient
 __author__ = 'drews'
 
 
+class DataParser(object):
+    xmlns = '{http://linux.duke.edu/metadata/common}'
+    xmlns_rpm = '{http://linux.duke.edu/metadata/rpm}'
+
+
 class Data(HTTPClient):
     """
     Represents the common attributes of all database types within a yum repository
     """
-    xmlns = '{http://linux.duke.edu/metadata/common}'
-    xmlns_rpm = '{http://linux.duke.edu/metadata/rpm}'
 
     def __init__(self, **kwargs):
         """
@@ -50,6 +53,6 @@ class Data(HTTPClient):
         Load the repo database from the remote source, and then parse it.
         :return:
         """
-        data = self._http_request(self.location())
+        data = self.http_request(self.location())
         self._parse(data)
         return self
