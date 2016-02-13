@@ -34,6 +34,7 @@ class Conflicts<list>
 class Obsoletes<list>
 
 RepoCollection "1" o-- "1..*" RepoFile
+RepoCollection "1" *-- "1..*" Repo
 RepoFile "1" o-- "1..*" Repo
 Repo "1" *-- "1" Metadata
 

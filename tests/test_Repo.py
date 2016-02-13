@@ -14,18 +14,11 @@ class TestRepo(TestCase):
                 basearch='x86_64'
         )
 
-        self.assertEqual(repos.keys, [
-            "red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-rpms",
+        self.assertListEqual(dict(repos.repositories).keys(), [
+            "red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-debug-rpms",
             "red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-source-rpms",
-            "red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-debug-rpms"
+            "red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-rpms"
         ])
-
-        self.assertIsInstance(repos['red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-rpms'],
-                              Repo)
-        self.assertIsInstance(repos['red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-source-rpms'],
-                              Repo)
-        self.assertIsInstance(repos['red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-debug-rpms'],
-                              Repo)
 
         # Test the base rpms repo.
         rpms_content = {
