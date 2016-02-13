@@ -20,6 +20,11 @@ So I build a platform agnostic system to help me.
 I have another project [yum2s3](https://github.com/drewsonne/yum2s3) which was the driving factor behind building this
 library. For this reason, the functionality in this library is driven primary by the needs of that project.
 
+## What does it look like?
+
+![Class Diagram](/diagrams/pyum.svg?raw=true "Class Diagram")
+
+
 ## Can I help?
 Please do! I've done my best to make this a test driven project, so if you can improve my tests; please do. If you can
 write new tests; please do. If you can expand functionality after writing tests; please do.
