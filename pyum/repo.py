@@ -13,7 +13,7 @@ class RepoFile(RawConfigParser, object):
     def __init__(self, path_to_config):
         """
         Path on disk to the ini file containing the repo description
-        :param path_to_config str:
+        :param str path_to_config:
         :return:
         """
         super(RepoFile, self).__init__()
@@ -36,8 +36,8 @@ class RepoFile(RawConfigParser, object):
     def set_yum_variables(self, releasever, basearch):
         """
         Variables which are usually injected from an OS level.
-        :param releasever int: OS major version
-        :param basearch string: One of either 'i386' or 'x86_64'.
+        :param int releasever: OS major version
+        :param str basearch: One of either 'i386' or 'x86_64'.
         :return:
         """
         self.yum_variables = {
@@ -73,7 +73,7 @@ class Repo(HTTPClient):
 
     @property
     def enabled(self):
-        return ('1' if self.__getattr__('enabled') else '0')
+        return '1' if self.__getattr__('enabled') else '0'
 
     def render_string(self, string):
         if isinstance(string, str):
@@ -84,8 +84,8 @@ class Repo(HTTPClient):
     def set_yum_variables(self, releasever, basearch):
         """
         Variables which are usually injected from an OS level.
-        :param releasever int: OS major version
-        :param basearch string: One of either 'i386' or 'x86_64'.
+        :param int releasever: OS major version
+        :param str basearch: One of either 'i386' or 'x86_64'.
         :return:
         """
         self.yum_variables = {
@@ -101,9 +101,10 @@ class Repo(HTTPClient):
             return RepoMetadata(self.repo_params['baseurl'])
         else:
             mirrorlist = self._get_mirrorlist()
+            mirror = None
             for mirror in mirrorlist:
                 if not mirror.endswith('repodata/repomd.xml'):
-                    mirror = mirror + 'repodata/repomd.xml'
+                    mirror += 'repodata/repomd.xml'
                 if self._url_is_reachable(mirror):
                     break
             return RepoMetadata(mirror)
@@ -123,7 +124,8 @@ class Repo(HTTPClient):
         mirrorlist = []
         doc = ElementTree.fromstring(xml)
         urls = doc.findall(
-                './/{http://www.metalinker.org/}files/{http://www.metalinker.org/}file/{http://www.metalinker.org/}resources/{http://www.metalinker.org/}url')
+                ('.//{http://www.metalinker.org/}files/{http://www.metalinker.org/}file/{http://www.metalinker.org/}'
+                 'resources/{http://www.metalinker.org/}url'))
         for url in urls:
             if ('type' in url.attrib) and (url.attrib['type'] in ['http', 'https']):
                 mirrorlist.append(url.text)

@@ -34,7 +34,7 @@ class HTTPClient(object):
         path = o.path
         if o.query != '':
             path = "{0}?{1}".format(path, o.query)
-        return (path, connection_func(o.netloc))
+        return path, connection_func(o.netloc)
 
     @cache.opts(keys=('url', 'decode'), lifetime=3600)
     def http_request(self, url, decode='utf-8'):

@@ -94,7 +94,7 @@ class Format(object):
 
 class Package(object):
     """
-    Represents the general cocnept of an RPM, but not any single RPM. eg, httpd, but not httpd-2.348-el6
+    Represents the XML description of an RPM in a repomd xml database.
     """
 
     @staticmethod

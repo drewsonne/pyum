@@ -1,4 +1,5 @@
 from pyum.httpclient import HTTPClient
+from lxml import etree
 
 __author__ = 'drews'
 
@@ -12,6 +13,18 @@ class Data(HTTPClient):
     """
     Represents the common attributes of all database types within a yum repository
     """
+
+    xml_parse = None
+
+    @classmethod
+    def parse(cls, xml_path):
+        """
+        Parses an xml_path with the inherited xml parser
+        :param xml_path:
+        :return:
+        """
+        parser = etree.XMLParser(target=cls.xml_parse())
+        return etree.parse(xml_path, parser)
 
     def __init__(self, **kwargs):
         """

@@ -1,15 +1,26 @@
 import os
+import types
 from unittest import TestCase
 import pkg_resources
 from pyum.repometadata import RepoMetadata, PrimaryData
+
 __author__ = 'drews'
 
 
 class TestRepoMetadata(TestCase):
-    def test_group_listing(self):
-        primary = PrimaryData(test=None)
-        primary.setRepoUrl(os.path.realpath(pkg_resources.resource_filename(__name__, 'resources')))
-        primary._parse(pkg_resources.resource_filename(__name__, 'resources/primary.xml').decode('utf-8'))
+    def test_primary_package_listing(self):
+        primary = PrimaryData.parse(pkg_resources.resource_filename(__name__, 'resources/primary.xml').decode('utf-8'))
+        self.assertEqual(type(primary.packages), types.GeneratorType)
+        self.assertListEqual(dict(primary.packages).keys(), [
+            '389-ds-base',
+            'GConf2',
+            'Cython',
+            'GConf2-devel',
+            'GeoIP',
+            'ElectricFence',
+            '389-ds-base-devel',
+            '389-ds-base-libs'
+        ])
 
     def test_url_resolution(self):
         md = RepoMetadata('http://example.com/yum')

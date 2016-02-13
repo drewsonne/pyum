@@ -92,10 +92,10 @@ def opts(*opts_args, **opts_kwargs):
                 cache_path = default_cache_path
             _initialise(cache_path)
 
-            key = _build_key(func.__name__,opts_kwargs['keys'], dict(zip(func_arg_names, args)))
+            key = _build_key(func.__name__, opts_kwargs['keys'], dict(zip(func_arg_names, args)))
 
             if _key_exists(key, cache_path):
-                result = _get_cache(key,cache_path)
+                result = _get_cache(key, cache_path)
             else:
                 result = func(self, *args, **kwargs)
                 _store_key(key, cache_path, result)
