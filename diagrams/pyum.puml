@@ -1,4 +1,5 @@
 @startuml
+skinparam dpi 300
 
 class RepoCollection
 
