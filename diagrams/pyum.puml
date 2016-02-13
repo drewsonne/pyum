@@ -25,8 +25,6 @@ class DependencyEntry
 
 class RPM
 
-class list
-
 class Provides<list>
 
 class Depends<list>
@@ -39,11 +37,11 @@ RepoCollection "1" o-- "1..*" RepoFile
 RepoFile "1" o-- "1..*" Repo
 Repo "1" *-- "1" Metadata
 
-Metadata *-- PrimaryDb
-Metadata *-- GroupDb
-Metadata *-- FilelistDb
-Metadata *-- OtherDb
-Metadata *-- UpdateDb
+Metadata "1" *-- "1" PrimaryDb
+Metadata "1" *-- "0..1" GroupDb
+Metadata "1" *-- "0..1" FilelistDb
+Metadata "1" *-- "0..1" OtherDb
+Metadata "1" *-- "0..1" UpdateDb
 
 PrimaryDb <|-- Database
 GroupDb <|-- Database
@@ -51,21 +49,21 @@ FilelistDb <|-- Database
 OtherDb <|-- Database
 UpdateDb <|-- Database
 
-Database o-- Package
+Database "1" o-- "1..*" Package
 
-Package o-- RPM
-Package *-- Format
-Package *-- Package
+Package "1" o-- "1" RPM
+Package "1" *-- "1" Format
+Package "1..*" *-- "1..*" Package
 
-Format *-- Provides
-Format *-- Depends
-Format *-- Conflicts
-Format *-- Obsoletes
+Format "1" *-- "1" Provides
+Format "1" *-- "1" Depends
+Format "1" *-- "1" Conflicts
+Format "1" *-- "1" Obsoletes
 
-Provides *-- DependencyEntry
-Depends *-- DependencyEntry
-Conflicts *-- DependencyEntry
-Obsoletes *-- DependencyEntry
+Provides "1" *-- "1..*" DependencyEntry
+Depends "1" *-- "1..*" DependencyEntry
+Conflicts "1" *-- "1..*" DependencyEntry
+Obsoletes "1" *-- "1..*" DependencyEntry
 
 
 @enduml
