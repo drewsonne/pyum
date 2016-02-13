@@ -1,0 +1,70 @@
+@startuml
+
+class RepoCollection
+
+class RepoFile
+
+class Repo
+
+class Metadata
+
+abstract class Database
+
+class PrimaryDb
+class GroupDb
+class FilelistDb
+class OtherDb
+class UpdateDb
+
+class Package
+
+class Format
+
+class DependencyEntry
+
+class RPM
+
+class list
+
+class Provides<list>
+
+class Depends<list>
+
+class Conflicts<list>
+
+class Obsoletes<list>
+
+RepoCollection "1" o-- "1..*" RepoFile
+RepoFile "1" o-- "1..*" Repo
+Repo "1" *-- "1" Metadata
+
+Metadata *-- PrimaryDb
+Metadata *-- GroupDb
+Metadata *-- FilelistDb
+Metadata *-- OtherDb
+Metadata *-- UpdateDb
+
+PrimaryDb <|-- Database
+GroupDb <|-- Database
+FilelistDb <|-- Database
+OtherDb <|-- Database
+UpdateDb <|-- Database
+
+Database o-- Package
+
+Package o-- RPM
+Package *-- Format
+Package *-- Package
+
+Format *-- Provides
+Format *-- Depends
+Format *-- Conflicts
+Format *-- Obsoletes
+
+Provides *-- DependencyEntry
+Depends *-- DependencyEntry
+Conflicts *-- DependencyEntry
+Obsoletes *-- DependencyEntry
+
+
+@enduml
