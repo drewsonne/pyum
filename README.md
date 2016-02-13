@@ -22,7 +22,7 @@ library. For this reason, the functionality in this library is driven primary by
 
 ## What does it look like?
 
-<img src="https://github.com/drewsonne/pyum/blob/develop/diagrams/pyum.png?raw=true" width="234" height="400" />
+<img src="https://github.com/drewsonne/pyum/blob/develop/diagrams/pyum.png?raw=true" width="400" height="683" />
 
 ![Class Diagram](/diagrams/pyum.png?raw=true "Class Diagram")
 
