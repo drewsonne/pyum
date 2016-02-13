@@ -24,9 +24,6 @@ library. For this reason, the functionality in this library is driven primary by
 
 <img src="https://github.com/drewsonne/pyum/blob/develop/diagrams/pyum.png?raw=true" width="400" height="683" />
 
-![Class Diagram](/diagrams/pyum.png?raw=true "Class Diagram")
-
-
 ## Can I help?
 Please do! I've done my best to make this a test driven project, so if you can improve my tests; please do. If you can
 write new tests; please do. If you can expand functionality after writing tests; please do.
